@@ -82,7 +82,7 @@
                         </div>
                     </div>
                     <div class="select-seat row bg-white mx-0 px-3 pt-3 pb-1 mb-3 rounded-1 shadow-sm justify-content-center">
-                        <div class=" col-sm-2 col-8 pl-0">
+                        <div class="col-sm-2 col-8 pl-0">
                             <div class="d-flex">
                                 <div class="sold text-center">
                                     <img src="img/sold-seat.png" class="img-fluid mb-1">
@@ -119,8 +119,31 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-12 ">
-                            {{selectedSeats}}
+                        <div class="col-sm-2 col-8 ">
+                            <div class="row">
+                                <button class="btn btn-lg btn-block btn-danger w-100 mt-lg-5">Seat(s) States</button>
+                                <div class="col-12" v-if="selectedSeats.length == 0">
+                                    <p class="mt-lg-5 ml-lg-3">No Seat Selected</p>
+                                </div>
+                                <div class="col-12 table-responsive-sm" v-else>
+                                    <table class="table">
+                                        <tr>
+                                            <th>Sl</th>
+                                            <th>S. Name</th>
+                                            <th>Price</th>
+                                        </tr>
+                                        <tr v-for="(seat, i) in selectedSeats">
+                                            <td>{{i+1}}</td>
+                                            <td>{{seat.name}}</td>
+                                            <td class="text-right">{{seat.price}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" class="text-right">Total</td>
+                                            <td>{{total}}/=</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="list_item d-flex col-12 m-0 p-3 bg-white shadow-sm rounded-1 shadow-sm">

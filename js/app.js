@@ -172,6 +172,13 @@ var app = Vue.createApp({
         selectedSeats(){
             let ss = this.seats.filter((item) => item.type === 'selected');
             return ss;
+        },
+        total(){
+            let total = 0;
+            this.selectedSeats.forEach(seat => {
+                total += seat.price;
+            });
+            return total;
         }
     },
     methods:{
@@ -184,6 +191,11 @@ var app = Vue.createApp({
             }else if(clickedSeat.type == 'booked'){
                 alertify.set('notifier','position', 'top-right');
                 alertify.warning('This Ticket Booked');
+                return;
+            }
+            if(this.selectedSeats.length >= 3){
+                alertify.set('notifier','position', 'top-right');
+                alertify.warning('You can not select more than 3');
                 return;
             }
             clickedSeat.type = clickedSeat.type === 'selected'?'available':'selected';
