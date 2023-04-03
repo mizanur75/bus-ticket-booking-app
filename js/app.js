@@ -1,7 +1,7 @@
 var app = Vue.createApp({
     data(){
         return{
-            msg: "Welcome to vuejs 3",
+            msg: "Welcome to vuejs Bus Ticket Booking System",
             info: {
                 name: "mizanur rahman",
                 skills: ["HTML", "CSS", "JS", "PHP", "MySQL", "LARAVEL", "LIVEWIRE", "VUEJS"],
@@ -27,15 +27,7 @@ var app = Vue.createApp({
         };
     },
     methods:{
-        getCurrentTime(){
-            return new Date();
-        },
-        incerement(){
-            this.count ++;
-        },
-        decerement(){
-            this.count --;
-        }
+        
     }
 });
 
