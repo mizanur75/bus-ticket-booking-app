@@ -169,7 +169,11 @@ var app = Vue.createApp({
         };
     },
     methods:{
-        
+        handleClick(i){
+            let clickedSeat = this.seats[i];
+            this.seats[i].type = 'selected';
+            console.log(clickedSeat);
+        }
     }
 });
 
