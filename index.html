@@ -24,11 +24,53 @@
         .bg-success{
             color: #fff;
         }
+        #overlay {
+            position: fixed; /* Sit on top of the page content */
+            display: block; /* Hidden by default */
+            width: 40%; /* Full width (cover the whole page) */
+            min-height: 50%; /* Full height (cover the whole page) */
+            top: 0;
+            left: 30%;
+            right: 0;
+            bottom: 20;/* Black background with opacity */
+            z-index: 9; /* Specify a stack order in case you're using a different order for other elements */
+        }
       </style>
       <script src="js/vue.global.js"></script>
    </head>
    <body class="bg-light">
         <div id="app">
+            <div v-if="confirmed" id="overlay" class="" style="background: rgba(199, 199, 203, 0.93);">
+                <div class="container">
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="table table-bordered table-striped mt-3">
+                                    <tr>
+                                        <th>Sl</th>
+                                        <th>S. Name</th>
+                                        <th>Price</th>
+                                    </tr>
+                                    <tr v-for="(seat, i) in selectedSeats">
+                                        <td>{{i+1}}</td>
+                                        <td>{{seat.name}}</td>
+                                        <td class="text-right">{{seat.price}}</td>
+                                    </tr>
+                                    <tr v-if="appliedCoupon">
+                                        <td colspan="2">Discount</td>
+                                        <td class="text-right">{{appliedCoupon.discount}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="text-right">Total</td>
+                                        <td>{{total}}</td>
+                                    </tr>
+                                </table>
+                                <button type="button" class="btn btn-sm btn-success float-right" @click="resetData()">Book Again</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="seat-select padding-bt">
                 <div class="osahan-header-nav shadow-sm p-3 d-flex align-items-center bg-danger">
                     <h5 class="font-weight-normal mb-0 text-white">
@@ -150,9 +192,9 @@
                                     <p v-if="appliedCoupon === null">Have a coupon?<input type="text" v-model="couponCode" placeholder="Your Coupon Code" class="form-control form-control-sm mb-2"></p>
                                     <p v-else>Applied Coupon: {{appliedCoupon.code}}</p>
                                     
-                                    <input type="text" v-mode="clientName" placeholder="Name" class="form-control form-control-sm mb-2">
-                                    <input type="text" v-mode="phone" placeholder="Phone" class="form-control form-control-sm mb-2">
-                                    <button class="btn btn-sm btn-block btn-success w-100">Comfirm</button>
+                                    <input type="text" v-model="clientName" placeholder="Name" class="form-control form-control-sm mb-2">
+                                    <input type="text" v-model="phone" placeholder="Phone" class="form-control form-control-sm mb-2">
+                                    <button type="submit" class="btn btn-sm btn-block btn-success w-100" :disabled="selectedSeats.length === 0" @click="confirm()">Comfirm</button>
                                 </div>
                             </div>
                         </div>
@@ -186,7 +228,7 @@
                 </div>
             </div>
             <div class="fixed-bottom view-seatbt p-3">
-                <a href="#" class="btn btn-danger btn-block d-flex align-items-center osahanbus-btn rounded-1">
+                <a href="javascript:void(0)" class="btn btn-danger btn-block d-flex align-items-center osahanbus-btn rounded-1">
                 <span class="text-left l-hght-14">
                 TOTAL {{total}}<br>
                 <small class="f-10 text-white-50">Seats Selected : {{selectedSeats.length}}</small>

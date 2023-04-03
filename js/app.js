@@ -4,6 +4,7 @@ var app = Vue.createApp({
             msg: "Welcome to vuejs Bus Ticket Booking System",
             clientName: '',
             phone: '',
+            confirmed: false,
             info: {
                 name: "mizanur rahman",
                 skills: ["HTML", "CSS", "JS", "PHP", "MySQL", "LARAVEL", "LIVEWIRE", "VUEJS"],
@@ -212,6 +213,27 @@ var app = Vue.createApp({
         }
     },
     methods:{
+        confirm(){
+            if (!this.clientName || !this.phone) {
+                alertify.set('notifier','position', 'top-right');
+                alertify.warning('Please enter name and phone');
+                return;
+            }
+            this.confirmed = true;
+            
+        },
+        resetData(){
+            this.confirmed = false;
+            this.clientName = '';
+            this.phone = '';
+            this.appliedCoupon = null;
+
+            this.seats.forEach((seat) => {
+                if (seat.type === 'selected') {
+                    seat.type = 'sold';
+                }
+            });
+        },
         handleClick(i){
             let clickedSeat = this.seats[i];
             if(clickedSeat.type == 'sold'){
