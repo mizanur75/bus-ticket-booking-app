@@ -49,6 +49,7 @@
                         <i class="icofont-star text-muted"></i>
                         <span class="text-dark">4.0</span>
                     </div>
+                    <h6 class="mb-1 font-weight-bold text-dark">COUPONS: 50TKOFF, 40TKOFF, 30TKOFF, 20TKOFF, 10TKOFF</h6>
                     <div class="bg-white rounded-1 shadow-sm p-3 mb-3 w-100">
                         <div class="row mx-0 mb-3">
                             <div class="col-6 p-0">
@@ -121,12 +122,12 @@
                         </div>
                         <div class="col-sm-2 col-8 ">
                             <div class="row">
-                                <button class="btn btn-lg btn-block btn-danger w-100 mt-lg-5">Seat(s) States</button>
+                                <button class="btn btn-lg btn-block btn-danger w-100">Seat(s) States</button>
                                 <div class="col-12" v-if="selectedSeats.length == 0">
                                     <p class="mt-lg-5 ml-lg-3">No Seat Selected</p>
                                 </div>
                                 <div class="col-12 table-responsive-sm" v-else>
-                                    <table class="table">
+                                    <table class="table table-bordered">
                                         <tr>
                                             <th>Sl</th>
                                             <th>S. Name</th>
@@ -137,11 +138,21 @@
                                             <td>{{seat.name}}</td>
                                             <td class="text-right">{{seat.price}}</td>
                                         </tr>
+                                        <tr v-if="appliedCoupon">
+                                            <td colspan="2">Discount</td>
+                                            <td class="text-right">{{appliedCoupon.discount}}</td>
+                                        </tr>
                                         <tr>
                                             <td colspan="2" class="text-right">Total</td>
-                                            <td>{{total}}/=</td>
+                                            <td>{{total}}</td>
                                         </tr>
                                     </table>
+                                    <p v-if="appliedCoupon === null">Have a coupon?<input type="text" v-model="couponCode" placeholder="Your Coupon Code" class="form-control form-control-sm mb-2"></p>
+                                    <p v-else>Applied Coupon: {{appliedCoupon.code}}</p>
+                                    
+                                    <input type="text" v-mode="clientName" placeholder="Name" class="form-control form-control-sm mb-2">
+                                    <input type="text" v-mode="phone" placeholder="Phone" class="form-control form-control-sm mb-2">
+                                    <button class="btn btn-sm btn-block btn-success w-100">Comfirm</button>
                                 </div>
                             </div>
                         </div>
@@ -155,7 +166,7 @@
                                 <p class="mb-2 l-hght-18 font-weight-bold">More info.</p>
                                 <div class="l-hght-10 d-flex align-items-center my-2">
                                     <small class="text-muted mb-0 pr-1">Passenger</small>
-                                    <p class="small mb-0 ml-auto l-hght-14"> Joan Rase</p>
+                                    <p class="small mb-0 ml-auto l-hght-14"> Miznaur Rahman</p>
                                 </div>
                                 <div class="l-hght-10 d-flex align-items-center my-2">
                                     <small class="text-muted mb-0 pr-1">Ticket Number</small>
@@ -167,7 +178,7 @@
                                 </div>
                                 <div class="l-hght-10 d-flex align-items-center mt-3">
                                     <p class="mb-0 pr-1 font-weight-bold">Amount Paid</p>
-                                    <p class="mb-0 ml-auto l-hght-14 text-danger font-weight-bold">$700</p>
+                                    <p class="mb-0 ml-auto l-hght-14 text-danger font-weight-bold">{{total}}</p>
                                 </div>
                             </div>
                         </div>
@@ -177,8 +188,8 @@
             <div class="fixed-bottom view-seatbt p-3">
                 <a href="#" class="btn btn-danger btn-block d-flex align-items-center osahanbus-btn rounded-1">
                 <span class="text-left l-hght-14">
-                TOTAL $700<br>
-                <small class="f-10 text-white-50">Seats Selected : {{count}}</small>
+                TOTAL {{total}}<br>
+                <small class="f-10 text-white-50">Seats Selected : {{selectedSeats.length}}</small>
                 </span>
                 <span class="font-weight-bold ml-auto">NEXT</span>
                 </a>

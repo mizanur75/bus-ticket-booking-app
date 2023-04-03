@@ -2,6 +2,8 @@ var app = Vue.createApp({
     data(){
         return{
             msg: "Welcome to vuejs Bus Ticket Booking System",
+            clientName: '',
+            phone: '',
             info: {
                 name: "mizanur rahman",
                 skills: ["HTML", "CSS", "JS", "PHP", "MySQL", "LARAVEL", "LIVEWIRE", "VUEJS"],
@@ -165,6 +167,30 @@ var app = Vue.createApp({
                     type:'available',
                     price: 500
                 }
+            ],
+            appliedCoupon: null,
+            couponCode:'',
+            coupons:[
+                {
+                    code: '50TKOFF',
+                    discount: 50
+                },
+                {
+                    code: '40TKOFF',
+                    discount: 40
+                },
+                {
+                    code: '30TKOFF',
+                    discount: 30
+                },
+                {
+                    code: '20TKOFF',
+                    discount: 20
+                },
+                {
+                    code: '10TKOFF',
+                    discount: 10
+                }
             ]
         };
     },
@@ -177,7 +203,11 @@ var app = Vue.createApp({
             let total = 0;
             this.selectedSeats.forEach(seat => {
                 total += seat.price;
+                
             });
+            if (this.appliedCoupon) {
+                total = total - this.appliedCoupon.discount;
+            }
             return total;
         }
     },
@@ -199,9 +229,28 @@ var app = Vue.createApp({
                 return;
             }
             clickedSeat.type = clickedSeat.type === 'selected'?'available':'selected';
-            
-            
-            console.log(clickedSeat);
+        }
+    },
+    watch:{
+        couponCode(newValue){
+            console.log(newValue.length);
+            if (newValue.length === 7) {
+                let appliedCoupon = this.coupons.filter((cop) => 
+                    cop.code === newValue
+                );
+
+                if (appliedCoupon.length === 1) {
+                    this.appliedCoupon = appliedCoupon[0];
+                    this.couponCode = '';
+                    alertify.set('notifier','position', 'top-right');
+                    alertify.success('Coupon Applied');
+                    this.total;
+                }else{
+                    alertify.set('notifier','position', 'top-right');
+                    alertify.warning('Coupon is not valid');
+                }
+            }
+
         }
     }
 });
