@@ -245,7 +245,7 @@ var app = Vue.createApp({
                 alertify.warning('This Ticket Booked');
                 return;
             }
-            if(this.selectedSeats.length >= 3){
+            if(clickedSeat.type == 'available' && this.selectedSeats.length >= 3){
                 alertify.set('notifier','position', 'top-right');
                 alertify.warning('You can not select more than 3');
                 return;
