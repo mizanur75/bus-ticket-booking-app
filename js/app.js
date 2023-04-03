@@ -168,10 +168,27 @@ var app = Vue.createApp({
             ]
         };
     },
+    computed:{
+        selectedSeats(){
+            let ss = this.seats.filter((item) => item.type === 'selected');
+            return ss;
+        }
+    },
     methods:{
         handleClick(i){
             let clickedSeat = this.seats[i];
-            this.seats[i].type = 'selected';
+            if(clickedSeat.type == 'sold'){
+                alertify.set('notifier','position', 'top-right');
+                alertify.warning('This Ticket Sold');
+                return;
+            }else if(clickedSeat.type == 'booked'){
+                alertify.set('notifier','position', 'top-right');
+                alertify.warning('This Ticket Booked');
+                return;
+            }
+            clickedSeat.type = clickedSeat.type === 'selected'?'available':'selected';
+            
+            
             console.log(clickedSeat);
         }
     }

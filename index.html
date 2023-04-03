@@ -13,6 +13,7 @@
       <link rel="stylesheet" type="text/css" href="vendor/slick/slick-theme.min.css" />
       <link href="css/custom.css" rel="stylesheet">
       <link href="vendor/sidebar/demo.css" rel="stylesheet">
+      <link rel="stylesheet" href="css/alertify.min.css"/>
       <style>
         .bg-secondary{
             color: #fff;
@@ -81,7 +82,7 @@
                         </div>
                     </div>
                     <div class="select-seat row bg-white mx-0 px-3 pt-3 pb-1 mb-3 rounded-1 shadow-sm justify-content-center">
-                        <div class="col-2 pl-0">
+                        <div class=" col-sm-2 col-8 pl-0">
                             <div class="d-flex">
                                 <div class="sold text-center">
                                     <img src="img/sold-seat.png" class="img-fluid mb-1">
@@ -98,9 +99,8 @@
                             </div>
                             <div class="select-seat">
                                 <div class="checkboxes-seat mt-4">
-                                    <div class="btn-group btn-group-toggle mb-1">
-                                        <div></div>
-                                        <img src="img/driver.png" class="img-fluid mb-4 float-right">
+                                    <div class="sold text-right">
+                                        <img src="img/driver.png" class="img-fluid mb-4 mr-3">
                                     </div>
                                     <div class="btn-group btn-group-toggle d-block mb-1">
                                         <label class="btn check-seat btn-success small btn-sm rounded mr-2 mb-2"
@@ -113,10 +113,14 @@
                                         v-for="(seat, i) in seats" :key="seat.name" @click="handleClick(i)">
                                             <!-- <input type="checkbox" name="a1" autocomplete="off"> -->
                                             {{seat.name}}
+                                            <br>
                                         </label>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-sm-12 col-12 ">
+                            {{selectedSeats}}
                         </div>
                     </div>
                     <div class="list_item d-flex col-12 m-0 p-3 bg-white shadow-sm rounded-1 shadow-sm">
@@ -157,6 +161,7 @@
                 </a>
             </div>
         </div>
-      <script src="js/app.js"></script>
+    <script src="js/alertify.min.js"></script>
+    <script src="js/app.js"></script>
    </body>
 </html>
